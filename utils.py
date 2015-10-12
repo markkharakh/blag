@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3,hashlib
 
 def writePost(txt, idp, idu):
     conn = sqlite3.connect('data.db')
@@ -21,6 +21,35 @@ def getPosts(idu):
         print r
     conn.commit()
 
+def encrypt(word):
+    hashp = hashlib.md5()
+    hashp.update(word)
+    return hashp.hexdigest()
+    
+def authenticate(username,password):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = 'SELECT users.password FROM users WHERE users.name = %s'
+    result = conn.execute(q%username)
+    for r in result:
+        if(encrypt(password) == r[0]):
+            return True
+    return False
+
+def addUser(username,password):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = 'SELECT users.name FROM users WHERE users.name = %s'
+    result = conn.execute(q%username)
+    print len(result)
+    if len(result) == 0:
+        q = 'SELECT max(users.id) FROM users'
+        uid = conn.execute(q)
+        q = 'INSERT INTO users VALUES (?, ?, ?)'
+        conn.execute(q, (username, encrypt(password), uid+1))
+        return True
+    return False
+    
 getPosts(1)
 getPosts(2)
 getPosts(3)
