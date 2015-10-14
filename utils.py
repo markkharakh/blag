@@ -1,6 +1,6 @@
 import sqlite3,hashlib
 
-def writePost(txt, idu):
+def writePost(title, txt, idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT MAX(pid) FROM posts"
@@ -10,8 +10,8 @@ def writePost(txt, idu):
         if i[0]!=None:
             idp = i[0]+1
     print idp
-    q = "INSERT INTO posts(content,pid,uid) VALUES(?,?,?)"
-    cur.execute(q,(txt,idp,idu))
+    q = "INSERT INTO posts(title,content,uid,pid) VALUES(?,?,?,?)"
+    cur.execute(q,(title,txt,idu,idp))
     conn.commit()
 
 def writeComment(txt, idu, idp):
@@ -103,21 +103,23 @@ def addUser(username,password):
         return True
     return False
 
-'''addUser("what is this","efdsf")
-addUser("snaddy project","eeefef")
-addUser("more users","gggggg")
-addUser("ok this is the last","dfsdf")
+#addUser("what is this","efdsf")
+#addUser("snaddy project","eeefef")
+#addUser("more users","gggggg")
+#addUser("ok this is the last","dfsdf")
 
-writePost("im sandy",2)
-writePost("call me white fang",3)
-writePost("im also white bread",4)
-writePost("im the leader fear me",1)
-writePost("i joined track to run away from my problems",3)
-writePost("kms",2)
+#writePost("im sandy",2)
+#writePost("call me white fang",3)
+#writePost("im also white bread",4)
+#writePost("im the leader fear me",1)
+#writePost("i joined track to run away from my problems",3)
+#writePost("kms",2)
+#writePost("sandy candy pt 4","i may be candy but im not sweet ;)",1)
 
-writeComment("lol i hate u",1,2)
-writeComment("who do u think u r",3,3)
-writeComment("gr8 work snad",1,4)'''
+#writeComment("lol i hate u",1,2)
+#writeComment("who do u think u r",3,3)
+#writeComment("gr8 work snad",1,4)
+writeComment("maybe your creativity should join the track team",3,6)
     
 #print getUserPosts(1)
 #print getUserPosts(2)
