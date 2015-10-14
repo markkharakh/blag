@@ -28,7 +28,7 @@ def home():
 @app.route("/post/<int:postid>")
 def post(postid):
         postrow = utils.getPost(postid)
-        commentrow = utils.getComments(postid)
+        commentrow = utils.getCommentsOnPost(postid)
         return render_template("post.html", postrow = postrow, commentrow = commentrow)
 
 @app.route("/makepost", methods = ['GET','POST'])
@@ -53,3 +53,4 @@ if __name__ == "__main__":
    app.debug = True
    app.secret_key = "hello"
    app.run(host='0.0.0.0', port=8000)
+   app.run(debug=True)
