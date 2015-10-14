@@ -28,6 +28,13 @@ def writeComment(txt, idu, idp):
     cur.execute(q,(txt,idc,idp,idu))
     conn.commit()
 
+def getPost(idp):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT * FROM posts WHERE posts.pid = %d"
+    result = cur.execute(q%idp).fetchone()
+    return result
+
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
@@ -65,6 +72,14 @@ def authenticate(username,password):
             return True
     return False
 
+def getUserId(name):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = 'SELECT users.id FROM users WHERE users.name = %s'
+    result = conn.execute(q%name).fetchone()
+    print result
+    return result[0]
+
 def addUser(username,password):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
@@ -73,7 +88,7 @@ def addUser(username,password):
     print len(result)
     if len(result) == 0:
         q = 'SELECT max(users.id) FROM users'
-        uid = cur.execute(q)
+        uid = cur.execute(q).fetchone()[0]
         q = 'INSERT INTO users VALUES (?, ?, ?)'
         cur.execute(q, (username, encrypt(password), uid+1))
         return True
@@ -98,4 +113,3 @@ print getUserPosts(4)
 print getCommentsOnPost(4)
 print getCommentsOnPost(6)
 print getCommentsOnPost(7)
-
