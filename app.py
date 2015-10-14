@@ -16,7 +16,9 @@ def home():
 	q = "SELECT * FROM posts"
 	cur.execute(q)
 	all_rows = cur.fetchall()
-        print all_rows
+	for n in range(len(all_rows)):
+		all_rows[n] = all_rows[n][0]
+		print all_rows[n]
 	return render_template("home.html", all_rows=all_rows)
 
 @app.route("/")
@@ -25,5 +27,4 @@ def index():
 
 
 if __name__ == "__main__":
-   app.debug = True
-   app.run(host='0.0.0.0', port=8000)
+   app.run(debug=True)
