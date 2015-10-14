@@ -1,8 +1,13 @@
 import sqlite3,hashlib
 
-def writePost(txt, idp, idu):
+def writePost(txt, idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
+    q = "SELECT MAX(pid) FROM posts"
+    last = conn.execute(q)
+    for i in last:
+        idp = i[0]+1
+    print idp
     q = "INSERT INTO posts(content,pid,uid) VALUES(?,?,?)"
     conn.execute(q,(txt,idp,idu))
     conn.commit()
@@ -11,6 +16,7 @@ def writePost(txt, idp, idu):
 #writePost("call me white fang",3,1)
 #writePost("im also white bread",4,1)
 #writePost("im the leader fear me",5,4)
+#writePost("i joined track to run away from my problems",3)
 
 def getPosts(idu):
     conn = sqlite3.connect('data.db')
