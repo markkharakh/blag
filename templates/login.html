@@ -9,17 +9,22 @@
   </div>
   <div id="navcontainer">
     <ul id="navlist">
-      <li id="active"><a id="current" href="#">Login</a></li>
+      <li><a href="{{url_for('home')}}">Blag Blogpage</a></li>
+      <li><a href="{{url_for('makepost')}}">New Post</a></li>
+      <li id="active"><a id="current" href="{{url_for('login')}}">Login</a></li>
+      <li><a href="{{url_for('about')}}">About</a></li>
     </ul>
   </div>
     <div id="content">
     <h2>Blag! The new way to blog.</h2>
 <br />
-    <h2>Log In<br /><br /><form method = "POST">Username:<input type = "text" name = "name" value = "username">
+<h2>Log In<br /><br />
+  <form method = "POST">
+    Username:<input type = "text" name = "user" value = "">
 <br /><br />
-	Password:<input type = "text" name = "password" value = "password"></h2>
+    Password:<input type = "password" name = "pass" value = ""></h2>
 <br />
-	<input type = "submit" name = "press" value = "login"></form>
+    <input type = "submit" name = "press" value = "login"></form>
   </div>
   <div id="container-foot">
   </div>

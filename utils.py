@@ -38,7 +38,7 @@ def getPost(idp):
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT * FROM comments WHERE comments.pid = %s"
+    q = "SELECT * FROM comments WHERE comments.pid = %d"
     result = cur.execute(q%idp)
     comments = []
     for r in result:
@@ -49,7 +49,7 @@ def getCommentsOnPost(idp):
 def getUserPosts(idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT * FROM posts WHERE posts.uid = %s"
+    q = "SELECT * FROM posts WHERE posts.uid = %d"
     result = cur.execute(q%idu)
     posts = []
     for r in result:
@@ -77,7 +77,13 @@ def getUserId(name):
     cur = conn.cursor()
     q = 'SELECT users.id FROM users WHERE users.name = %s'
     result = conn.execute(q%name).fetchone()
-    print result
+    return result[0]
+
+def getUserName(uid):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = 'SELECT users.name FROM users WHERE users.id = %d'
+    result = conn.execute(q%name).fetchone()
     return result[0]
 
 def addUser(username,password):

@@ -5,6 +5,10 @@ import utils
 
 app = Flask(__name__)
 
+@app.route("/about")
+def about():
+        return render_template("about.html")
+
 @app.route("/login", methods = ['GET','POST'])
 def login():
         if request.method == 'POST':
