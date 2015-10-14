@@ -1,0 +1,123 @@
+html, body {
+height: 100%; /* Required */
+}
+body {
+margin : 0;
+padding : 0;
+font : 75% "Trebuchet MS", verdana, arial, tahoma, sans-serif;
+line-height : 1.8em;
+color : #666;
+background : #E16027 url(img/bg.jpg) repeat-y top center;
+}
+			/*CONTAINER*/
+#container {
+position: relative;
+min-height: 100%;
+width : 750px;
+margin : 0 auto;
+padding-bottom: 30px;
+}
+* html #container {
+height: 100%;
+}
+			/*BANNER*/
+#banner {
+height : 150px;
+padding : 0;
+margin-top : 0;
+color : #666;
+background : #7dce27 url(img/banner.jpg) no-repeat;
+}
+
+			/*TOP NAVIGATION*/
+#navlist {
+padding : 0.5em 0;
+margin : 0 0 20px 0;
+text-align : left;
+letter-spacing : 5px;
+background : #CB2D05;
+}
+#navlist li {
+list-style : none;
+margin : 0;
+display : inline;
+}
+#navlist li a {
+padding : 0.5em 0.5em;
+margin: 0;
+color : #000;
+text-decoration : none;
+}
+#navlist li a:link,#navlist li a:visited {
+color : #000;
+background : #CB2D05;
+}
+#navlist li a:hover {
+color : yellow;
+background : transparent url(img/menu_arrow.gif) bottom center no-repeat;
+}
+#navlist li a#current {
+color :  #fff;
+background : transparent url(img/menu_arrow.gif) bottom center no-repeat;
+}
+			/*MAIN CONTENT*/
+#content {
+padding : 20px;
+margin-left : 50px;
+margin-right : 50px;
+margin-bottom : 10px;
+color : #666;
+background : #fff;
+}
+#content h2 {
+margin : 0 0 0 0;
+font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
+padding : 5px;
+text-transform : uppercase;
+letter-spacing : 5px;
+color : #833B0B;
+background : inherit;
+}
+			/*LINK PROPERTIES*/
+a {
+text-decoration : none;
+color : #BC5510;
+}
+a:hover {
+text-decoration : none;
+color : #1E99EB;
+}
+a img {
+border : 0;
+}
+input[type=text] {padding:5px; border:2px solid #ccc; 
+-webkit-border-radius: 5px;
+border-radius: 5px;
+font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
+}
+input[type=text]:focus {border-color:#333; }
+
+input[type=submit] {padding:5px 15px; background:#ccc; border:0 none;
+cursor:pointer;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
+}
+			/*CLASSES*/
+.info {
+color : #B29B35;
+}
+.post {
+padding : 3px;
+margin : 20px 10px 10px 5px;
+border : 1px solid #8a795d;
+font-size : 80%;
+color: #ccc;
+background : #fff;
+} 
+.post .comments { 
+background : url(img/comment.gif) no-repeat left center;
+padding-left : 15px;
+margin : 0 15px 0 5px;
+} 
+ 

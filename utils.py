@@ -76,46 +76,54 @@ def getUserId(name):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.id FROM users WHERE users.name = %s'
-    result = conn.execute(q%name).fetchone()
+    result = cur.execute(q%name).fetchone()
     return result[0]
 
 def getUserName(uid):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.id = %d'
-    result = conn.execute(q%name).fetchone()
+    result = cur.execute(q%name).fetchone()
     return result[0]
 
 def addUser(username,password):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = 'SELECT users.name FROM users WHERE users.name = %s'
-    result = cur.execute(q%username)
-    print len(result)
-    if len(result) == 0:
+    q = 'SELECT users.name FROM users WHERE users.name = ?'
+    result = cur.execute(q,(username,)).fetchone()
+    if result == None:
         q = 'SELECT max(users.id) FROM users'
         uid = cur.execute(q).fetchone()[0]
+        if uid==None:
+            uid=0
         q = 'INSERT INTO users VALUES (?, ?, ?)'
         cur.execute(q, (username, encrypt(password), uid+1))
+        print str(uid+1)+","+username
+        conn.commit()
         return True
     return False
 
-#writePost("im sandy",2,1)
-#writePost("call me white fang",3,1)
-#writePost("im also white bread",4,1)
-#writePost("im the leader fear me",5,4)
-#writePost("i joined track to run away from my problems",3)
-#writePost("kms",2)
+'''addUser("what is this","efdsf")
+addUser("snaddy project","eeefef")
+addUser("more users","gggggg")
+addUser("ok this is the last","dfsdf")
 
-#writeComment("lol i hate u",1,7)
-#writeComment("who do u think u r",3,7)
-#writeComment("gr8 work snad",1,4)
+writePost("im sandy",2)
+writePost("call me white fang",3)
+writePost("im also white bread",4)
+writePost("im the leader fear me",1)
+writePost("i joined track to run away from my problems",3)
+writePost("kms",2)
+
+writeComment("lol i hate u",1,2)
+writeComment("who do u think u r",3,3)
+writeComment("gr8 work snad",1,4)'''
     
-print getUserPosts(1)
-print getUserPosts(2)
-print getUserPosts(3)
-print getUserPosts(4)
+#print getUserPosts(1)
+#print getUserPosts(2)
+#print getUserPosts(3)
+#print getUserPosts(4)
 
-print getCommentsOnPost(4)
-print getCommentsOnPost(6)
-print getCommentsOnPost(7)
+#print getCommentsOnPost(4)
+#print getCommentsOnPost(6)
+#print getCommentsOnPost(7)

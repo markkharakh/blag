@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, request
 from flask import redirect, url_for
 import sqlite3
 import utils
@@ -23,7 +23,7 @@ def login():
 def home():
         conn = sqlite3.connect('data.db')
         cur = conn.cursor()
-        q = "SELECT * FROM posts"
+        q = "SELECT posts.content,posts.pid,posts.uid,users.name FROM posts, users WHERE users.id = posts.uid"
         cur.execute(q)
         all_rows = cur.fetchall()
         print all_rows
@@ -51,7 +51,6 @@ def makepost():
 @app.route("/")
 def index():
         return "hello"
-
 
 if __name__ == "__main__":
    app.debug = True
