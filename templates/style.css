@@ -90,6 +90,19 @@ color : #1E99EB;
 a img {
 border : 0;
 }
+input[type=text] {padding:5px; border:2px solid #ccc; 
+-webkit-border-radius: 5px;
+border-radius: 5px;
+font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
+}
+input[type=text]:focus {border-color:#333; }
+
+input[type=submit] {padding:5px 15px; background:#ccc; border:0 none;
+cursor:pointer;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
+}
 			/*CLASSES*/
 .info {
 color : #B29B35;
