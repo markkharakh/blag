@@ -11,12 +11,20 @@ def about():
         
 @app.route("/login", methods = ['GET','POST'])
 def login():
+        conn = sqlite3.connect('data.db')
+        cur = conn.cursor()
+        q = "SELECT users.name FROM users"
+        cur.execute(q)
+        all_rows = cur.fetchall()
+        print all_rows
         if request.method == 'POST':
                 user = str(request.form['user'])
-                password = str(request.form['password'])
+                password = str(request.form['pass'])
                 if utils.authenticate(user,password):
-                        session['user'] = utils.getUserId(session['user'])
+                        session['user'] = utils.getUserId(user)
                         return redirect("/home")
+                else:
+                        return render_template("login.html")
         return render_template("login.html") #login failed
 
 @app.route("/home")
@@ -46,10 +54,11 @@ def makepost():
                 idp = writePost(title,content,user)
                 return redirect("/post/"+idp)
         else:
-                return render_template("makepost.html")
+                return render_template("post.html")
 
 @app.route("/")
 def index():
+
         return "hello"
         
 if __name__ == "__main__":

@@ -65,7 +65,7 @@ def encrypt(word):
 def authenticate(username,password):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = 'SELECT users.password FROM users WHERE users.name = %s'
+    q = 'SELECT users.password FROM users WHERE users.name = "%s"'
     result = cur.execute(q%username)
     for r in result:
         if(encrypt(password) == r[0]):
@@ -75,7 +75,7 @@ def authenticate(username,password):
 def getUserId(name):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = 'SELECT users.id FROM users WHERE users.name = %s'
+    q = 'SELECT users.id FROM users WHERE users.name = "%s"'
     result = cur.execute(q%name).fetchone()
     return result[0]
 
