@@ -41,6 +41,7 @@ def home():
 def post(postid):
         postrow = utils.getPost(postid)
         commentrow = utils.getCommentsOnPost(postid)
+        print commentrow
         return render_template("post.html", postrow = postrow, commentrow = commentrow)
 
 @app.route("/makepost", methods = ['GET','POST'])
@@ -51,14 +52,13 @@ def makepost():
                 title = request.form['title']
                 content = request.form['content']
                 user = session['user']
-                idp = writePost(title,content,user)
-                return redirect("/post/"+idp)
+                idp = utils.writePost(title,content,user)
+                return redirect("/post/"+str(idp))
         else:
-                return render_template("post.html")
+                return render_template("newpost.html")
 
 @app.route("/")
 def index():
-
         return "hello"
         
 if __name__ == "__main__":

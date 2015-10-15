@@ -13,6 +13,7 @@ def writePost(title, txt, idu):
     q = "INSERT INTO posts(title,content,uid,pid) VALUES(?,?,?,?)"
     cur.execute(q,(title,txt,idu,idp))
     conn.commit()
+    return idp
 
 def writeComment(txt, idu, idp):
     conn = sqlite3.connect('data.db')
@@ -119,7 +120,7 @@ def addUser(username,password):
 #writeComment("lol i hate u",1,2)
 #writeComment("who do u think u r",3,3)
 #writeComment("gr8 work snad",1,4)
-writeComment("maybe your creativity should join the track team",3,6)
+#writeComment("maybe your creativity should join the track team",3,6)
     
 #print getUserPosts(1)
 #print getUserPosts(2)
@@ -129,3 +130,4 @@ writeComment("maybe your creativity should join the track team",3,6)
 #print getCommentsOnPost(4)
 #print getCommentsOnPost(6)
 #print getCommentsOnPost(7)
+
