@@ -14,14 +14,20 @@ Software Development Term 1 Project
 ##How to Use
 
 ## Deadlines
-<b>BY 10-13-15 NIGHT <br>
+**BY 10-13-15** NIGHT <br>
 ROUTES ESTABLISHED
 DISPLAY QUERY RESULTS ON THE WEBPAGE
 
-<b>BY 10-14-15 <br>
+**BY 10-14-15** <br>
 DISPLAY POSTS AESTHETICALLY (home page)
 MAKE POSTS USING USER INTERFACE
 
-<b>BY 10-15-15 <br>
-LOGIN / SESSION & AUTHENTIFICATION FOR POST/COMMENT WRITING
-</b>
+**BY 10-15-15** <br>
++LOGIN / SESSION & AUTHENTIFICATION FOR POST/COMMENT WRITING <br>
++Link names to comments and posts
++Fancy up the new post and individual post pages
+
+**BY 10-16-15 +** <br>
++User pages and access to individual posts <br>
++Profile pictures (thank u leader san) <br>
++Registration (thank u nikolai kage san) <br>
