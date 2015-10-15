@@ -31,3 +31,6 @@ MAKE POSTS USING USER INTERFACE
 +User pages and access to individual posts <br>
 +Profile pictures (thank u leader san) <br>
 +Registration (thank u nikolai kage san) <br>
+
+**BY 10-17-15** <br>
++Remove comments, users, and posts
