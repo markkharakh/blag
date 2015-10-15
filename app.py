@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/about")
 def about():
         return render_template("about.html")
-
+        
 @app.route("/login", methods = ['GET','POST'])
 def login():
         if request.method == 'POST':
@@ -23,7 +23,7 @@ def login():
 def home():
         conn = sqlite3.connect('data.db')
         cur = conn.cursor()
-        q = "SELECT posts.content,posts.pid,posts.uid,users.name FROM posts, users WHERE users.id = posts.uid"
+        q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
         cur.execute(q)
         all_rows = cur.fetchall()
         print all_rows
@@ -51,9 +51,9 @@ def makepost():
 @app.route("/")
 def index():
         return "hello"
-
+        
 if __name__ == "__main__":
-   app.debug = True
-   app.secret_key = "hello"
-   app.run(host='0.0.0.0', port=8000)
-   app.run(debug=True)
+        app.secret_key = "hello"
+        app.debug = True
+        app.run(host='0.0.0.0', port=8000)
+        #app.run(debug=True)
