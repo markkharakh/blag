@@ -23,15 +23,18 @@ def login():
         if request.method == 'POST':
                 user = str(request.form['user'])
                 password = str(request.form['pass'])
+                error = ""
                 if request.form['press'] == login:
                         if utils.authenticate(user,password):
                                 session['user'] = utils.getUserId(user)
                                 return redirect("/home")
                         else:
-                                return render_template("login.html")
+                                error = "Incorrect Username or Password. Try Again."
+                                return render_template("login.html",error=error)
                 else:
                         if user in all_rows:
                                 error = "Username already exists. Please try another"
+                                return render_template("login.html",error=error)
                         else: 
                                 utils.addUser(user,password,1)
                                 return redirect("/home")
