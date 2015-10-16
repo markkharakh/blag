@@ -1,5 +1,7 @@
 import sqlite3,hashlib
 
+#----------------------------------Writing--------------------------------
+
 def writePost(title, txt, idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
@@ -29,12 +31,17 @@ def writeComment(txt, idu, idp):
     cur.execute(q,(txt,idc,idp,idu))
     conn.commit()
 
-def getPost(idp):
+#----------------------------------Deleting-------------------------------
+def deleteComment(idc):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT * FROM posts WHERE posts.pid = %d"
-    result = cur.execute(q%idp).fetchone()
-    return result
+    q = "DELETE FROM comments where comment.cid = %d"
+    cur.execute(q%idc)
+    q = "UPDATE comments SET comment.cid = comment.cid - 1 WHERE comments.cid > %d"
+    cur.execute(q%idc)    
+    conn.commit()
+
+#----------------------------------Getting--------------------------------
 
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
@@ -58,11 +65,40 @@ def getUserPosts(idu):
     conn.commit()
     return posts
 
+def getPost(idp):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT * FROM posts WHERE posts.pid = %d"
+    result = cur.execute(q%idp).fetchone()
+    return result
+
+def getAllPosts():
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
+    cur.execute(q)
+    all_rows = cur.fetchall()
+    print all_rows
+    conn.commit()
+    return all_rows
+
+def getAllUsers():
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT users.name FROM users"
+    cur.execute(q)
+    all_rows = cur.fetchall()
+    print all_rows
+    conn.commit()
+    return all_rows
+
+#----------------------------------Log In---------------------------------
+    
 def encrypt(word):
     hashp = hashlib.md5()
     hashp.update(word)
     return hashp.hexdigest()
-    
+
 def authenticate(username,password):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
