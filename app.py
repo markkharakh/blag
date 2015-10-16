@@ -11,12 +11,13 @@ def about():
         
 @app.route("/login", methods = ['GET','POST'])
 def login():
-        conn = sqlite3.connect('data.db')
+        '''conn = sqlite3.connect('data.db')
         cur = conn.cursor()
         q = "SELECT users.name FROM users"
         cur.execute(q)
         all_rows = cur.fetchall()
-        print all_rows
+        print all_rows'''
+        all_rows = utils.getAllUsers()
         if request.method == 'POST':
                 user = str(request.form['user'])
                 password = str(request.form['pass'])
@@ -30,12 +31,13 @@ def login():
 @app.route("/register", methods = ['GET','POST'])
 def register():
         error = ""
-        conn = sqlite3.connect('data.db')
+        '''conn = sqlite3.connect('data.db')
         cur = conn.cursor()
         q = "SELECT users.name FROM users"
         cur.execute(q)
         all_rows = cur.fetchall()
-        print all_rows
+        print all_rows'''
+        all_rows = utils.getAllUsers()
         for n in range(len(all_rows)):
                 all_rows[n] = all_rows[n][0]
         if request.method == 'POST':
@@ -51,12 +53,7 @@ def register():
 @app.route("/")
 @app.route("/home")
 def home():
-        conn = sqlite3.connect('data.db')
-        cur = conn.cursor()
-        q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
-        cur.execute(q)
-        all_rows = cur.fetchall()
-        print all_rows
+        all_rows = utils.getAllPosts()
         return render_template("home.html", all_rows=all_rows)
 
 @app.route("/post/<int:postid>")
