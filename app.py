@@ -18,25 +18,28 @@ def login():
         all_rows = cur.fetchall()
         print all_rows'''
         all_rows = utils.getAllUsers()
+        for n in range(len(all_rows)):
+                all_rows[n] = all_rows[n][0]
         if request.method == 'POST':
                 user = str(request.form['user'])
                 password = str(request.form['pass'])
-                if utils.authenticate(user,password):
-                        session['user'] = utils.getUserId(user)
-                        return redirect("/home")
+                if request.form['press'] == login:
+                        if utils.authenticate(user,password):
+                                session['user'] = utils.getUserId(user)
+                                return redirect("/home")
+                        else:
+                                return render_template("login.html")
                 else:
-                        return render_template("login.html")
+                        if user in all_rows:
+                                error = "Username already exists. Please try another"
+                        else: 
+                                utils.addUser(user,password,1)
+                                return redirect("/home")
         return render_template("login.html") #login failed
         
 @app.route("/register", methods = ['GET','POST'])
 def register():
         error = ""
-        '''conn = sqlite3.connect('data.db')
-        cur = conn.cursor()
-        q = "SELECT users.name FROM users"
-        cur.execute(q)
-        all_rows = cur.fetchall()
-        print all_rows'''
         all_rows = utils.getAllUsers()
         for n in range(len(all_rows)):
                 all_rows[n] = all_rows[n][0]
