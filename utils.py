@@ -6,29 +6,25 @@ def writePost(title, txt, idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT MAX(pid) FROM posts"
-    last = cur.execute(q)
-    idp = 1
-    for i in last:
-        if i[0]!=None:
-            idp = i[0]+1
-    print idp
+    idp = cur.execute(q).fetchone()[0]
+    if idp == None:
+        idp = 0
+    print idp+1
     q = "INSERT INTO posts(title,content,uid,pid) VALUES(?,?,?,?)"
-    cur.execute(q,(title,txt,idu,idp))
+    cur.execute(q,(title,txt,idu,idp+1))
     conn.commit()
-    return idp
+    return idp + 1
 
 def writeComment(txt, idu, idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT MAX(cid) FROM comments"
-    last = cur.execute(q)
-    idc = 1
-    for i in last:
-        if i[0]!=None:
-            idc = i[0]+1
-    print idc
+    idc = cur.execute(q).fetchone()[0]
+    if idc == None:
+        idc = 0
+    print idc+1
     q = "INSERT INTO comments(content,cid,pid,uid) VALUES(?,?,?,?)"
-    cur.execute(q,(txt,idc,idp,idu))
+    cur.execute(q,(txt,idc+1,idp,idu))
     conn.commit()
 
 #----------------------------------Deleting-------------------------------
@@ -123,7 +119,7 @@ def getUserName(uid):
     result = cur.execute(q%name).fetchone()
     return result[0]
 
-def addUser(username,password):
+def addUser(username,password,pic):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.name = ?'
@@ -133,8 +129,8 @@ def addUser(username,password):
         uid = cur.execute(q).fetchone()[0]
         if uid==None:
             uid=0
-        q = 'INSERT INTO users VALUES (?, ?, ?)'
-        cur.execute(q, (username, encrypt(password), uid+1))
+        q = 'INSERT INTO users VALUES (?, ?, ?, ?)'
+        cur.execute(q, (username, encrypt(password), uid+1, pic))
         print str(uid+1)+","+username
         conn.commit()
         return True

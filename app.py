@@ -44,10 +44,11 @@ def register():
                 if user in all_rows:
                         error = "Username already exists. Please try another"
                 else: 
-                        utils.addUser(user,password)
+                        utils.addUser(user,password,1)
                         return redirect("/home")
         return render_template("register.html", error=error) #login failed
 
+@app.route("/")
 @app.route("/home")
 def home():
         conn = sqlite3.connect('data.db')
