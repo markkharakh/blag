@@ -26,6 +26,27 @@ def login():
                 else:
                         return render_template("login.html")
         return render_template("login.html") #login failed
+        
+@app.route("/register", methods = ['GET','POST'])
+def register():
+        error = ""
+        conn = sqlite3.connect('data.db')
+        cur = conn.cursor()
+        q = "SELECT users.name FROM users"
+        cur.execute(q)
+        all_rows = cur.fetchall()
+        print all_rows
+        for n in range(len(all_rows)):
+                all_rows[n] = all_rows[n][0]
+        if request.method == 'POST':
+                user = str(request.form['user'])
+                password = str(request.form['pass'])
+                if user in all_rows:
+                        error = "Username already exists. Please try another"
+                else: 
+                        utils.addUser(user,password)
+                        return redirect("/home")
+        return render_template("register.html", error=error) #login failed
 
 @app.route("/home")
 def home():
