@@ -31,12 +31,36 @@ def writeComment(txt, idu, idp):
 def deleteComment(idc):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "DELETE FROM comments where comments.cid = %d"
-    cur.execute(q%idc)
+    deleteCommentH(idc)
     q = "UPDATE comments SET cid = cid-1 WHERE cid > %d"
-    #print q%idc
     cur.execute(q%idc)    
     conn.commit()
+
+def deleteCommentH(idc):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "DELETE FROM comments WHERE comments.cid = %d"
+    cur.execute(q%idc)
+    conn.commit()
+
+def deletePost(idp):
+    #delete comments associated w it, decrement comments, decrement posts, delete the post
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT comments.cid FROM comments WHERE comments.pid = %d"
+    bad = cur.execute(q%idp).fetchall()
+    for comment in bad:
+        deleteCommentH(comment[0])
+    q = "DELETE FROM posts WHERE posts.pid = %d"
+    cur.execute(q%idp)
+    q = "UPDATE posts SET pid = pid-1 WHERE pid > %d"
+    cur.execute(q%idp)    
+    conn.commit()
+
+#writeComment("comment 1",5,9)
+#writeComment("comment 2",4,9)
+#deletePost(9)
+#deleteComment(7)
 
 #----------------------------------Getting--------------------------------
 
