@@ -31,9 +31,10 @@ def writeComment(txt, idu, idp):
 def deleteComment(idc):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "DELETE FROM comments where comment.cid = %d"
+    q = "DELETE FROM comments where comments.cid = %d"
     cur.execute(q%idc)
-    q = "UPDATE comments SET comment.cid = comment.cid - 1 WHERE comments.cid > %d"
+    q = "UPDATE comments SET cid = cid-1 WHERE cid > %d"
+    #print q%idc
     cur.execute(q%idc)    
     conn.commit()
 
