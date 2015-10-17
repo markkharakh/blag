@@ -9,12 +9,25 @@
   </div>
   <div id="navcontainer">
     <ul id="navlist">
-      <li id="active"><a id="current" href="#">Login</a></li>
+      <li><a href="{{url_for('home')}}">Blag Blogpage</a></li>
+      <li id="active"><a id="current" href="{{url_for('makepost')}}">New Post</a></li>
+	{% if session.has_key('user') %}
+	<li><a href="{{url_for('logout')}}">Logout</a></li>
+	{% else %}
+      <li><a href="{{url_for('login')}}">Login</a></li>
+	{% endif %}
+      <li><a href="{{url_for('user')}}">Profile</a></li>
+      <li><a href="{{url_for('about')}}">About</a></li>
     </ul>
   </div>
     <div id="content">
     <h2>Blag! The new way to blog.</h2>
 <br />
+    {% if session.has_key('user') %}
+    <p> Hello <b>{{session['user']}}</b>!</p>
+    {% else %}
+    <p> You are not logged in </p>
+    {% endif %}
     <h2>
     <br /> 
     <form method = "POST">

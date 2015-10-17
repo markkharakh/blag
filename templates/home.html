@@ -11,16 +11,26 @@
     <ul id="navlist">
       <li id="active"><a id="current" href="{{url_for('home')}}">Blag Blogpage</a></li>
       <li><a href="{{url_for('makepost')}}">New Post</a></li>
+	{% if session.has_key('user') %}
+	<li><a href="{{url_for('logout')}}">Logout</a></li>
+	{% else %}
       <li><a href="{{url_for('login')}}">Login</a></li>
+	{% endif %}
+      <li><a href="{{url_for('user')}}">Profile</a></li>
       <li><a href="{{url_for('about')}}">About</a></li>
     </ul>
   </div>
     <div id="content">
     <h2>Blag! The new way to blog.</h2>
 <br />
+    {% if session.has_key('user') %}
+    <p> Hello <b>{{session['user']}}</b>!</p>
+    {% else %}
+    <p> You are not logged in </p>
+    {% endif %}
     <p>Blag was created to be an amazing highschool blog experience</p>
     {% for r in all_rows %}
-    <h2>{{r[4]}}</h2>
+    <h2><a href="{{url_for('post', postid = r[1])}}">{{r[4]}}</a></h2>
     <p class="info"><img class="noborder" src="{{url_for('static', filename='img/sun.jpg')}}" alt="sun" title="sun"/> {{r[3]}}</p>
     <p>{{r[0]}}</p>
     <p class="post"> <a href="#" class="comments">Comments</a> </p>

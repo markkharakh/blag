@@ -27,6 +27,13 @@ def writeComment(txt, idu, idp):
     cur.execute(q,(txt,idc+1,idp,idu))
     conn.commit()
 
+def writeProfile(idu, filename, age, color):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "UPDATE users, pics SET pics.filename = ?, users.age = ?, users.color = ? WHERE users.id = ? AND users.picid = user.id"
+    cur.execute(q,(filename,age,color,idu))
+    conn.commit()
+    
 #----------------------------------Deleting-------------------------------
 def deleteComment(idc):
     conn = sqlite3.connect('data.db')
@@ -67,7 +74,7 @@ def deletePost(idp):
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT * FROM comments WHERE comments.pid = %d"
+    q = "SELECT comments.content,comments.time,users.name FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp)
     comments = []
     for r in result:
@@ -113,6 +120,15 @@ def getAllUsers():
     conn.commit()
     return all_rows
 
+def getProfile(uid):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = 'SELECT users.name,pics.filename,users.age,users.color FROM users,pics WHERE users.picid = pics.id'
+    cur.execute(q)
+    row = cur.fetchone()
+    return row
+    
+
 #----------------------------------Log In---------------------------------
     
 def encrypt(word):
@@ -141,7 +157,7 @@ def getUserName(uid):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.id = %d'
-    result = cur.execute(q%name).fetchone()
+    result = cur.execute(q%uid).fetchone()
     return result[0]
 
 def addUser(username,password,pic):

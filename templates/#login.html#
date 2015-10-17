@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Blag Login</title>
+<link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+  <div id="banner">
+  </div>
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li><a href="{{url_for('home')}}">Blag Blogpage</a></li>
+      <li><a href="{{url_for('makepost')}}">New Post</a></li>
+      <li id="active"><a id="current" href="{{url_for('login')}}">Login</a></li>
+      <li><a href="{{url_for('about')}}">About</a></li>
+    </ul>
+  </div>
+    <div id="content">
+    <h2>Blag! The new way to blog.</h2>
+<br />
+<h2>Log In<br /><br />
+  <form method = "POST">
+    Username:<input type = "text" name = "user" value = "">
+<br /><br />
+    Password:<input type = "password" name = "pass" value = ""></h2>
+<br />
+<input type = "submit" name = "press" value = "login"></form> or
+<input type = "submit" name = "register" value = "register"></form>
+  </div>
+  <div id="container-foot">
+  </div>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@ padding : 0;
 font : 75% "Trebuchet MS", verdana, arial, tahoma, sans-serif;
 line-height : 1.8em;
 color : #666;
-background : #E16027 url(img/bg.jpg) repeat-y top center;
+background : /*#E16027*/ #00131a url(img/bg.jpg) repeat-y top center;
 }
 			/*CONTAINER*/
 #container {
@@ -35,7 +35,7 @@ padding : 0.5em 0;
 margin : 0 0 20px 0;
 text-align : left;
 letter-spacing : 5px;
-background : #CB2D05;
+/*background : #CB2D05;*/ background : #1F2B83 ;
 }
 #navlist li {
 list-style : none;
@@ -50,7 +50,7 @@ text-decoration : none;
 }
 #navlist li a:link,#navlist li a:visited {
 color : #000;
-background : #CB2D05;
+/*background : #CB2D05;*/ background : #1F2B83 ;
 }
 #navlist li a:hover {
 color : yellow;
@@ -75,7 +75,7 @@ font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
 padding : 5px;
 text-transform : uppercase;
 letter-spacing : 5px;
-color : #833B0B;
+color : /*#833B0B*/ #0b3b8b;
 background : inherit;
 }
 			/*LINK PROPERTIES*/
@@ -96,13 +96,6 @@ border-radius: 5px;
 font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
 }
 input[type=text]:focus {border-color:#333; }
-
-input[type=password] {padding:5px; border:2px solid #ccc; 
--webkit-border-radius: 5px;
-border-radius: 5px;
-font : 130% verdana, "Trebuchet MS", arial, tahoma, sans-serif;
-}
-input[type=password]:focus {border-color:#333; }
 
 input[type=submit] {padding:5px 15px; background:#ccc; border:0 none;
 cursor:pointer;
