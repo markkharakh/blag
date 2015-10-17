@@ -54,14 +54,6 @@ def logout():
 def home():
         if usersession() == "":
                 return redirect("/login")
-        utils.addPic(1,"https://tse2.mm.bing.net/th?id=OIP.M2ce8f1b245901e21446ddfcad805dc07o0&pid=15.1")
-        utils.addPic(2,"https://cinechasquilla.files.wordpress.com/2014/12/24.jpg")
-        #conn = sqlite3.connect('data.db')
-        #cur = conn.cursor()
-        #q = "SELECT * FROM pics"
-        #result = cur.execute(q)
-        #testing = result.fetchall()
-        #print testing
         all_rows = utils.getAllPosts()
         return render_template("home.html", all_rows=all_rows)
 

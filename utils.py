@@ -224,3 +224,5 @@ def addPic(picid, filename):
 #print getCommentsOnPost(6)
 #print getCommentsOnPost(7)
 
+#utils.addPic(1,"https://tse2.mm.bing.net/th?id=OIP.M2ce8f1b245901e21446ddfcad805dc07o0&pid=15.1")
+#utils.addPic(2,"https://cinechasquilla.files.wordpress.com/2014/12/24.jpg")
