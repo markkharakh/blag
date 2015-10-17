@@ -59,7 +59,7 @@ def post(postid):
         commentrow = utils.getCommentsOnPost(postid)
         users = []
         for comment in commentrow:
-                users.append(utils.getUserName(comment[3]))
+                users.append(comment[2])
         size = len(users)
         print commentrow
         print users

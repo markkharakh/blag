@@ -96,7 +96,7 @@ def getUserPosts(idu):
 def getPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT * FROM posts WHERE posts.pid = %d"
+    q = "SELECT posts.*,users.name FROM posts,users WHERE posts.pid = %d AND posts.uid = users.id"
     result = cur.execute(q%idp).fetchone()
     return result
 
