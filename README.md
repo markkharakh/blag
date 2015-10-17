@@ -41,5 +41,6 @@ MAKE POSTS USING USER INTERFACE
 +Do edit profile <br>
 +Post timestamps <br>
 +Picture uploading (?) <br>
++About page
 +Final testing
 +Finish readme
