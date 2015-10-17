@@ -27,12 +27,9 @@ def writeComment(txt, idu, idp):
     cur.execute(q,(txt,idc+1,idp,idu))
     conn.commit()
 
-def writeProfile(idu, filename, age, color):
-    conn = sqlite3.connect('data.db')
+def data.db')
     cur = conn.cursor()
-    q = "UPDATE users, pics SET pics.filename = ?, users.age = ?, users.color = ? WHERE users.id = ? AND users.picid = user.id"
-    cur.execute(q,(filename,age,color,idu))
-    conn.commit()
+    q = 
     
 #----------------------------------Deleting-------------------------------
 def deleteComment(idc):
@@ -74,7 +71,7 @@ def deletePost(idp):
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
+    q = "SELECT comments.content,comments.time,users.name,comments.cid FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp)
     comments = []
     for r in result:
@@ -110,7 +107,7 @@ def getPost(idp):
 def getAllPosts():
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title,datetime(posts.time,'localtime') FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
+    q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
     cur.execute(q)
     all_rows = cur.fetchall()
     print all_rows
@@ -183,13 +180,6 @@ def addUser(username,password,pic):
         conn.commit()
         return True
     return False
-
-def addPic(picid, filename):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-    q = "INSERT INTO pics(id,filename) VALUES(?,?)"
-    cur.execute(q,(picid,filename))
-    conn.commit()
 
 #addUser("what is this","efdsf")
 #addUser("snaddy project","eeefef")
