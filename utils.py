@@ -33,6 +33,18 @@ def writeProfile(idu, filename, age, color):
     q = "UPDATE users, pics SET pics.filename = ?, users.age = ?, users.color = ? WHERE users.id = ? AND users.picid = user.id"
     cur.execute(q,(filename,age,color,idu))
     conn.commit()
+
+def writePic(filename):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT MAX(picid) FROM pics"
+    idp = cur.execute(q).fetchone()[0]
+    if idp == None:
+        idp = 0
+    print idp+1
+    q = "INSERT INTO pics(id,filename) VALUES(?,?)"
+    cur.execute(q,(idp,filename))
+    conn.commit()
     
 #----------------------------------Deleting-------------------------------
 def deleteComment(idc):
@@ -51,7 +63,6 @@ def deleteCommentH(idc):
     conn.commit()
 
 def deletePost(idp):
-    #delete comments associated w it, decrement comments, decrement posts, delete the post
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT comments.cid FROM comments WHERE comments.pid = %d"
@@ -75,12 +86,9 @@ def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
-    result = cur.execute(q%idp)
-    comments = []
-    for r in result:
-        comments.append(r)
+    result = cur.execute(q%idp).fetchall()
     conn.commit()
-    return comments
+    return result
 
 def getComment(cid):
     conn = sqlite3.connect('data.db')
@@ -93,12 +101,9 @@ def getUserPosts(idu):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT * FROM posts WHERE posts.uid = %d"
-    result = cur.execute(q%idu)
-    posts = []
-    for r in result:
-        posts.append(r)
+    result = cur.execute(q%idu).fetchall()
     conn.commit()
-    return posts
+    return result
 
 def getPost(idp):
     conn = sqlite3.connect('data.db')
@@ -189,13 +194,6 @@ def addUser(username,password,pic):
         return True
     conn.commit()
     return False
-
-def addPic(picid, filename):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-    q = "INSERT INTO pics(id,filename) VALUES(?,?)"
-    cur.execute(q,(picid,filename))
-    conn.commit()
 
 #addUser("what is this","efdsf")
 #addUser("snaddy project","eeefef")
