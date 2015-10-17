@@ -101,7 +101,7 @@ def delete(pid=0,cid=0):
         
 @app.route("/user")
 def user():
-        return
+        return render_template("myprofile.html")
 
 @app.route("/")
 def index():
