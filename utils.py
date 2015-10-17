@@ -105,6 +105,7 @@ def getPost(idp):
     cur = conn.cursor()
     q = "SELECT posts.*,users.name FROM posts,users WHERE posts.pid = %d AND posts.uid = users.id"
     result = cur.execute(q%idp).fetchone()
+    conn.commit()
     return result
 
 def getAllPosts():
@@ -133,6 +134,7 @@ def getProfile(uid):
     q = 'SELECT users.name,pics.filename,users.age,users.color FROM users,pics WHERE users.picid = pics.id'
     cur.execute(q)
     row = cur.fetchone()
+    conn.commit()
     return row
     
 
@@ -151,6 +153,7 @@ def authenticate(username,password):
     for r in result:
         if(encrypt(password) == r[0]):
             return True
+    conn.commit()
     return False
 
 def getUserId(name):
@@ -158,6 +161,7 @@ def getUserId(name):
     cur = conn.cursor()
     q = 'SELECT users.id FROM users WHERE users.name = "%s"'
     result = cur.execute(q%name).fetchone()
+    conn.commit()
     return result[0]
 
 def getUserName(uid):
@@ -165,6 +169,7 @@ def getUserName(uid):
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.id = %d'
     result = cur.execute(q%uid).fetchone()
+    conn.commit()
     return result[0]
 
 def addUser(username,password,pic):
@@ -182,6 +187,7 @@ def addUser(username,password,pic):
         print str(uid+1)+","+username
         conn.commit()
         return True
+    conn.commit()
     return False
 
 def addPic(picid, filename):
