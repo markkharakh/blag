@@ -24,8 +24,7 @@ def login():
                 user = str(request.form['user'])
                 password = str(request.form['pass'])
                 error = ""
-                if request.form['press'] == 'login':
-                        print "b"
+                if request.form['press'] == "login":
                         if utils.authenticate(user,password):
                                 session['user'] = user
                                 return redirect("/home")
@@ -46,7 +45,7 @@ def login():
 @app.route("/logout")
 def logout():
         del session['user']
-        return redirect("/home")
+        return redirect("/login")
 
 @app.route("/")
 @app.route("/home")
@@ -62,8 +61,9 @@ def post(postid):
         for comment in commentrow:
                 users.append(utils.getUserName(comment[3]))
         size = len(users)
+        print commentrow
         print users
-        return render_template("post.html", postrow = postrow, commentrow = commentrow,users = users, size = size)
+        return render_template("post.html", postrow = postrow, commentrow = commentrow, users = users, size = size)
 
 @app.route("/makepost", methods = ['GET','POST'])
 def makepost():
