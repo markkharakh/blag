@@ -31,9 +31,13 @@
     <p>Blag was created to be an amazing highschool blog experience</p>
     {% for r in all_rows %}
     <h2><a href="{{url_for('post', postid = r[1])}}">{{r[4]}}</a></h2>
-    <p class="info"><img class="noborder" src="{{url_for('static', filename='img/sun.jpg')}}" alt="sun" title="sun"/> {{r[3]}}</p>
+    <p class="info"><img class="noborder" src="{{url_for('static', filename='img/sun.jpg')}}" alt="sun" title="sun"/> {{r[3]}} 
+	{% if session['user'] == r[3] %}
+	<a href="{{url_for('delete', pid = r[1])}}">delete post</a>
+	{% endif %}
+</p>
     <p>{{r[0]}}</p>
-    <p class="post"> <a href="#" class="comments">Comments</a> </p>
+    <p class="post"> <a href="{{url_for('post', postid = r[1])}}" class="comments">Comments</a> </p>
     {% endfor %}
     
     <!--<h2>Post One</h2>

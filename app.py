@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 @app.route("/about")
 def about():
+        if usersession() == "":
+                return redirect("/login")
         return render_template("about.html")
         
 @app.route("/login", methods = ['GET','POST'])
@@ -50,11 +52,18 @@ def logout():
 @app.route("/")
 @app.route("/home")
 def home():
+        if usersession() == "":
+                return redirect("/login")
         all_rows = utils.getAllPosts()
         return render_template("home.html", all_rows=all_rows)
 
-@app.route("/post/<int:postid>")
+@app.route("/post/<int:postid>", methods = ['GET','POST'])
 def post(postid):
+        if usersession() == "":
+                return redirect("/login")
+        if request.method == 'POST':
+                content = str(request.form['name'])
+                utils.writeComment(content, utils.getUserId(session['user']), postid)
         postrow = utils.getPost(postid)
         commentrow = utils.getCommentsOnPost(postid)
         users = []
@@ -68,16 +77,28 @@ def post(postid):
 @app.route("/makepost", methods = ['GET','POST'])
 def makepost():
         if 'user' not in session:
-                return redirect ("/home")
+                return redirect ("/login")
         if request.method == 'POST':
                 title = request.form['title']
                 content = request.form['content']
                 user = session['user']
-                idp = utils.writePost(title,content,user)
+                idp = utils.writePost(title,content,utils.getUserId(user))
                 return redirect("/post/"+str(idp))
         else:
                 return render_template("newpost.html")
 
+@app.route("/delete/<int:pid>")
+@app.route("/delete/<int:pid>/<int:cid>")
+def delete(pid=0,cid=0):
+        if 'user' not in session:
+                return redirect ("/login")
+        if cid != 0 and utils.getComment(cid)[5] == session['user']:
+                utils.deleteComment(cid)
+                return redirect(url_for('post',postid=pid))
+        elif pid != 0 and utils.getPost(pid)[5] == session['user']:
+                utils.deletePost(pid)
+        return redirect("/home")
+        
 @app.route("/user")
 def user():
         return
@@ -92,7 +113,7 @@ def upload(url):
 
 def usersession():
         if session.has_key('user'):
-                user = utils.getUserName(session['user'])
+                user = session['user']
         else:
                 user = ""
         return user

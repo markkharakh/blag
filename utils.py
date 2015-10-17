@@ -74,13 +74,20 @@ def deletePost(idp):
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT comments.content,comments.time,users.name FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
+    q = "SELECT comments.content,comments.time,users.name,comments.cid FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp)
     comments = []
     for r in result:
         comments.append(r)
     conn.commit()
     return comments
+
+def getComment(cid):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "SELECT comments.*,users.name FROM comments, users WHERE comments.cid = %d AND users.id = comments.uid"
+    result = cur.execute(q%cid).fetchone()
+    return result
 
 def getUserPosts(idu):
     conn = sqlite3.connect('data.db')
@@ -170,7 +177,7 @@ def addUser(username,password,pic):
         uid = cur.execute(q).fetchone()[0]
         if uid==None:
             uid=0
-        q = 'INSERT INTO users VALUES (?, ?, ?, ?)'
+        q = 'INSERT INTO users VALUES (?, ?, ?, ?,-1,"")'
         cur.execute(q, (username, encrypt(password), uid+1, pic))
         print str(uid+1)+","+username
         conn.commit()
