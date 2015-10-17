@@ -54,6 +54,14 @@ def logout():
 def home():
         if usersession() == "":
                 return redirect("/login")
+        utils.addPic(1,"https://tse2.mm.bing.net/th?id=OIP.M2ce8f1b245901e21446ddfcad805dc07o0&pid=15.1")
+        utils.addPic(2,"https://cinechasquilla.files.wordpress.com/2014/12/24.jpg")
+        #conn = sqlite3.connect('data.db')
+        #cur = conn.cursor()
+        #q = "SELECT * FROM pics"
+        #result = cur.execute(q)
+        #testing = result.fetchall()
+        #print testing
         all_rows = utils.getAllPosts()
         return render_template("home.html", all_rows=all_rows)
 
@@ -100,12 +108,15 @@ def delete(pid=0,cid=0):
         return redirect("/home")
         
 @app.route("/user")
-def user():
-        return render_template("myprofile.html")
-
-@app.route("/")
-def index():
-        return "hello"
+@app.route("/user/<username>")
+def user(username=""):
+        if username == "":
+                return redirect("/login")
+        else:
+                userid = utils.getUserId(username)
+                profile = utils.getProfile(userid)
+                print profile
+                return render_template("myprofile.html", profile = profile)
 
 def upload(url):
         filename = ""

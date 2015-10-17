@@ -184,6 +184,13 @@ def addUser(username,password,pic):
         return True
     return False
 
+def addPic(picid, filename):
+    conn = sqlite3.connect('data.db')
+    cur = conn.cursor()
+    q = "INSERT INTO pics(id,filename) VALUES(?,?)"
+    cur.execute(q,(picid,filename))
+    conn.commit()
+
 #addUser("what is this","efdsf")
 #addUser("snaddy project","eeefef")
 #addUser("more users","gggggg")
