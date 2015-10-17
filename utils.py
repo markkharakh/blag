@@ -141,7 +141,7 @@ def getUserName(uid):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.id = %d'
-    result = cur.execute(q%name).fetchone()
+    result = cur.execute(q%uid).fetchone()
     return result[0]
 
 def addUser(username,password,pic):

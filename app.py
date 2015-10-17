@@ -24,7 +24,7 @@ def login():
                 user = str(request.form['user'])
                 password = str(request.form['pass'])
                 error = ""
-                if request.form['press'] == login:
+                if request.form['press'] == "login":
                         if utils.authenticate(user,password):
                                 session['user'] = utils.getUserId(user)
                                 return redirect("/home")
@@ -40,21 +40,6 @@ def login():
                                 return redirect("/home")
         return render_template("login.html") #login failed
         
-@app.route("/register", methods = ['GET','POST'])
-def register():
-        error = ""
-        all_rows = utils.getAllUsers()
-        for n in range(len(all_rows)):
-                all_rows[n] = all_rows[n][0]
-        if request.method == 'POST':
-                user = str(request.form['user'])
-                password = str(request.form['pass'])
-                if user in all_rows:
-                        error = "Username already exists. Please try another"
-                else: 
-                        utils.addUser(user,password,1)
-                        return redirect("/home")
-        return render_template("register.html", error=error) #login failed
 
 @app.route("/")
 @app.route("/home")
@@ -66,8 +51,13 @@ def home():
 def post(postid):
         postrow = utils.getPost(postid)
         commentrow = utils.getCommentsOnPost(postid)
+        users = []
+        for comment in commentrow:
+                users.append(utils.getUserName(comment[3]))
+        size = len(users)
         print commentrow
-        return render_template("post.html", postrow = postrow, commentrow = commentrow)
+        print users
+        return render_template("viewpostcomment.html", postrow = postrow, commentrow = commentrow, users = users, size = size)
 
 @app.route("/makepost", methods = ['GET','POST'])
 def makepost():

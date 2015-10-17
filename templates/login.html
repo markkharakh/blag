@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Blag Login</title>
-<link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+<link href={{url_for('static', filename='style.css')}} rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="container">
@@ -9,24 +9,23 @@
   </div>
   <div id="navcontainer">
     <ul id="navlist">
-      <li><a href="{{url_for('home')}}">Blag Blogpage</a></li>
-      <li><a href="{{url_for('makepost')}}">New Post</a></li>
-      <li id="active"><a id="current" href="{{url_for('login')}}">Login</a></li>
-      <li><a href="{{url_for('about')}}">About</a></li>
+      <li id="active"><a id="current" href="#">Login</a></li>
     </ul>
   </div>
     <div id="content">
     <h2>Blag! The new way to blog.</h2>
+    <h2><font color="red">{{error}}</font></h2>
 <br />
-<h2>Log In<br /><br />
-  <form method = "POST">
-    Username:<input type = "text" name = "user" value = "">
+    <h2>Log In<br /><br />
+      <form method = "POST">
+        Username:<input type = "text" name = "user">
 <br /><br />
-    Password:<input type = "password" name = "pass" value = ""></h2>
-<br />
-    <input type = "submit" name = "press" value = "login"></form>
-  </div>
-  <div id="container-foot">
+	Password:<input type = "password" name = "pass"></h2>
+Blag Requires you to login before you can access its blogpage<br /><br />
+	<input type = "submit" name = "press" value = "login"> or
+	<input type = "submit" name = "press" value = "register">
+</form>
+</h2>
   </div>
 </div>
 </body>
