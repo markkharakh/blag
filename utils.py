@@ -30,9 +30,16 @@ def writeComment(txt, idu, idp):
 def writeProfile(idu, filename, age, color):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "UPDATE users, pics SET pics.filename = ?, users.age = ?, users.color = ? WHERE users.id = ? AND users.picid = user.id"
-    cur.execute(q,(filename,age,color,idu))
+    q = "UPDATE users SET age = ?, color = ? WHERE id = ?"
+    cur.execute(q,(age,color,idu))
+    q = "SELECT picid from users where id = %d"
+    idpic = cur.execute(q%idu).fetchone()[0]
+    print idpic
+    q = "UPDATE pics SET filename = ? WHERE id = ?"
+    cur.execute(q,(filename,idpic))
     conn.commit()
+
+writeProfile(3,"www.stuycs.org", 35, "pink")
 
 def writePic(filename):
     conn = sqlite3.connect('data.db')
