@@ -75,9 +75,7 @@ def deletePost(idp):
     q = "SELECT comments.cid FROM comments WHERE comments.pid = %d"
     bad = cur.execute(q%idp).fetchall()
     for comment in bad:
-        deleteCommentH(comment[0])
-    q = "UPDATE comments SET cid = rowid"
-    cur.execute(q)
+        deleteCommentH(comment[0
     q = "DELETE FROM posts WHERE posts.pid = %d"
     cur.execute(q%idp)
     q = "UPDATE posts SET pid = pid-1 WHERE pid > %d"
@@ -196,7 +194,7 @@ def addUser(username,password):
         uid = cur.execute(q).fetchone()[0]
         if uid==None:
             uid=0
-        q = 'INSERT INTO users VALUES (?, ?, ?,-1,-1,"","")'
+        q = 'INSERT INTO users VALUES (?, ?, ?,-1,-1,"")'
         cur.execute(q, (username, encrypt(password), uid+1))
         print str(uid+1)+","+username
         conn.commit()

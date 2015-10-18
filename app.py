@@ -39,7 +39,7 @@ def login():
                                 error = "Username already exists. Please try another"
                                 return render_template("login.html",error=error)
                         else: 
-                                utils.addUser(user,password,1)
+                                utils.addUser(user,password)
                                 session['user'] = user
                                 return redirect("/home")
         return render_template("login.html") #login failed
