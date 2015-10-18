@@ -71,7 +71,6 @@ def post(postid):
                 users.append(comment[2])
         size = len(users)
         print commentrow
-        print users
         return render_template("post.html", postrow = postrow, commentrow = commentrow, users = users, size = size)
 
 @app.route("/makepost", methods = ['GET','POST'])

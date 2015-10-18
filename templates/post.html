@@ -30,7 +30,8 @@
     {% endif %}
     <p>Blag was created to be an amazing highschool blog experience</p>
     <h2>{{postrow[0]}}</h2>
-    <p class="info"><img class="noborder" src="/static/img/animal_crossing.png" alt="ok" title="sun"/> {{postrow[5]}} 
+    <p class="info"><img class="noborder" src="/static/img/animal_crossing.png" alt="ok" title="sun"/> 
+      <a href="{{url_for('user', username=postrow[5]) }}">{{postrow[5]}}</a> {{postrow[4]}}
 	{% if session['user'] == postrow[5] %}
 	<a href="{{url_for('delete', pid = postrow[3])}}">delete post</a>
 	{% endif %}
