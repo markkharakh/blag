@@ -39,7 +39,7 @@ def writeProfile(idu, filename, age, color):
     cur.execute(q,(filename,idpic))
     conn.commit()
 
-writeProfile(3,"www.stuycs.org", 35, "pink")
+#writeProfile(3,"www.stuycs.org", 35, "pink")
 
 def writePic(filename):
     conn = sqlite3.connect('data.db')
