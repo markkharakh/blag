@@ -94,7 +94,7 @@ def deletePost(idp):
 def getCommentsOnPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
+    q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid,users.filename FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp).fetchall()
     conn.commit()
     return result
@@ -117,7 +117,7 @@ def getUserPosts(idu):
 def getPost(idp):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT posts.*,users.name FROM posts,users WHERE posts.pid = %d AND posts.uid = users.id"
+    q = "SELECT posts.*,users.name,users.filename FROM posts,users WHERE posts.pid = %d AND posts.uid = users.id"
     result = cur.execute(q%idp).fetchone()
     conn.commit()
     return result
@@ -125,7 +125,7 @@ def getPost(idp):
 def getAllPosts():
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title,datetime(posts.time,'localtime') FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
+    q = "SELECT posts.content,posts.pid,posts.uid,users.name,posts.title,datetime(posts.time,'localtime'),users.filename FROM posts, users WHERE users.id = posts.uid ORDER BY posts.pid DESC"
     cur.execute(q)
     all_rows = cur.fetchall()
     print all_rows

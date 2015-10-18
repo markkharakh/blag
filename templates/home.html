@@ -31,7 +31,9 @@
     <p>Blag was created to be an amazing highschool blog experience</p>
     {% for r in all_rows %}
     <h2><a href="{{url_for('post', postid = r[1])}}">{{r[4]}}</a></h2>
-    <p class="info"><img class="noborder" src="{{url_for('static', filename='img/animal_crossing.png')}}" alt="fun" title="sun"/> 
+    <p class="info"> {% if r[6] %}
+    <img class="noborder" src="{{r[6]}}", width = "100px" alt="" title="sun"/>   {% else %}
+    <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}
       <a href="{{url_for('user', username=r[3]) }}">{{r[3]}}</a> {{r[5]}}
 	{% if session['user'] == r[3] %}
 	<a href="{{url_for('delete', pid = r[1])}}">delete post</a>
