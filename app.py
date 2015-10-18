@@ -121,6 +121,7 @@ def editprofile():
                 if request.form['picsource'] != "" and request.form['age'] != "" and request.form['color'] != "":
                         print "PICSOURCE = "+request.form['picsource']+" AGE ="+request.form['age']+" COLOR ="+ request.form['color']
                         utils.writeProfile(utils.getUserId(session['user']), request.form['picsource'], int(request.form['age']), request.form['color'])
+                        return redirect(url_for('user', username=session['user']))
                 else:
                         error = "Error: Missing fields"
                         return render_template("editprofile.html", error = error, profile = profile)
