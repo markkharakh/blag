@@ -99,17 +99,33 @@ def delete(pid=0,cid=0):
                 utils.deletePost(pid)
         return redirect("/home")
         
-@app.route("/user")
-@app.route("/user/<username>")
+@app.route("/user/<username>", methods = ['GET','POST'])
 def user(username=""):
         if username == "":
                 return redirect("/login")
         else:
-                userid = utils.getUserId(username)
-                profile = utils.getProfile(userid)
-                print profile
-                return render_template("myprofile.html", profile = profile)
+                if request.method == 'POST':
+                        return redirect("/editprofile")
+                else:
+                        userid = utils.getUserId(username)
+                        profile = utils.getProfile(userid)
+                        print profile
+                        return render_template("myprofile.html", profile = profile)
 
+@app.route("/editprofile", methods = ['GET','POST'])
+def editprofile():
+        error = ""
+        userid = utils.getUserId(session['user'])
+        profile = utils.getProfile(userid)
+        if request.method == 'POST':
+                if request.form['picsource'] != "" and request.form['age'] != "" and request.form['color'] != "":
+                        print "PICSOURCE = "+request.form['picsource']+" AGE ="+request.form['age']+" COLOR ="+ request.form['color']
+                        utils.writeProfile(utils.getUserId(session['user']), request.form['picsource'], int(request.form['age']), request.form['color'])
+                else:
+                        error = "Error: Missing fields"
+                        return render_template("editprofile.html", error = error, profile = profile)
+        else:
+                return render_template("editprofile.html", error = error, profile = profile)
 def upload(url):
         filename = ""
         return filename

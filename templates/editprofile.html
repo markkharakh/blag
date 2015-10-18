@@ -16,12 +16,16 @@
 	{% else %}
       <li><a href="{{url_for('login')}}">Login</a></li>
 	{% endif %}
-      <li id="active"><a id="current" href="{{url_for('user'+)}}">Profile</a></li>
+      <li id="active"><a id="current" href="{{url_for('user', username = session['user'])}}">Profile</a></li>
       <li><a href="{{url_for('about')}}">About</a></li>
     </ul>
   </div>
     <div id="content">
     <h2>Blag! The new way to blog.</h2>
+    {% if error != "" %}
+    <p><font color = "red">{{error}}</font></p>
+    <br>
+    {% endif %}
 <br />
     {% if session.has_key('user') %}
     <p> Hello <b>{{session['user']}}</b>!</p>
@@ -32,10 +36,10 @@
     <form method = "POST">
     <h2>My Profile   <input type = "submit" name = "press" value = "Submit New Information"><br /> <br /></h2>
 type the source of your picture file
-<h2>Picture:<input type = "text" name = "picsource"></h2><br /><br />
-<h2>Age:<input type = "text" name = "age"></h2>
+<h2>Picture:<input type = "text" name = "picsource" value = "{{profile[1]}}"></h2><br /><br />
+<h2>Age:<input type = "text" name = "age" value = "{{profile[2]}}"></h2>
 <br /><br />
-<h2>Favorite Ranger:<input type = "text" name = "color"></h2><br />
+<h2>Favorite Ranger:<input type = "text" name = "color" value = "{{profile[3]}}"></h2><br />
   </form>
   </div>
   <div id="container-foot">
