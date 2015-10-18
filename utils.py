@@ -30,18 +30,18 @@ def writeComment(txt, idu, idp):
 def writeProfile(idu, filename, age, color):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = "UPDATE users SET age = ?, color = ? WHERE id = ?"
-    cur.execute(q,(age,color,idu))
-    q = "SELECT picid from users where id = %d"
+    q = "UPDATE users SET age = ?, color = ?, filename = ? WHERE id = ?"
+    cur.execute(q,(age,color,filename,idu))
+    '''q = "SELECT picid from users where id = %d"
     idpic = cur.execute(q%idu).fetchone()[0]
     print idpic
     q = "UPDATE pics SET filename = ? WHERE id = ?"
-    cur.execute(q,(filename,idpic))
+    cur.execute(q,(filename,idpic))'''
     conn.commit()
 
 #writeProfile(3,"www.stuycs.org", 35, "pink")
 
-def writePic(filename):
+'''def writePic(filename):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT MAX(picid) FROM pics"
@@ -51,7 +51,7 @@ def writePic(filename):
     print idp+1
     q = "INSERT INTO pics(id,filename) VALUES(?,?)"
     cur.execute(q,(idp,filename))
-    conn.commit()
+    conn.commit()'''
     
 #----------------------------------Deleting-------------------------------
 def deleteComment(idc):
@@ -143,8 +143,8 @@ def getAllUsers():
 def getProfile(uid):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
-    q = 'SELECT users.name,pics.filename,users.age,users.color FROM users,pics WHERE users.picid = pics.id'
-    cur.execute(q)
+    q = 'SELECT name,filename,age,color FROM users WHERE users.id = %d'
+    cur.execute(q%uid)
     row = cur.fetchone()
     conn.commit()
     return row
@@ -184,7 +184,7 @@ def getUserName(uid):
     conn.commit()
     return result[0]
 
-def addUser(username,password,pic):
+def addUser(username,password):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.name = ?'
@@ -194,8 +194,8 @@ def addUser(username,password,pic):
         uid = cur.execute(q).fetchone()[0]
         if uid==None:
             uid=0
-        q = 'INSERT INTO users VALUES (?, ?, ?, ?,-1,"")'
-        cur.execute(q, (username, encrypt(password), uid+1, pic))
+        q = 'INSERT INTO users VALUES (?, ?, ?,-1,-1,"")'
+        cur.execute(q, (username, encrypt(password), uid+1))
         print str(uid+1)+","+username
         conn.commit()
         return True
