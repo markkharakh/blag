@@ -37,6 +37,7 @@ MAKE POSTS USING USER INTERFACE
 
 **BY 10-18-15** <br>
 +Fix formatting of long posts/comments/titles <br>
++Resize images <br>
 +Finish profile pages/make links to profiles work <br>
 +Do edit profile <br>
 +Post timestamps <br>
