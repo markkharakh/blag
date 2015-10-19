@@ -2,7 +2,7 @@
 Software Development Term 1 Project
 
 ## Description
-
+Blag is a new innovative blogging platform where everyone shares one blog. In this communal blogspace, users can create posts, view other users' posts, leave comments and check out other users' profiles. 
 ## Collaborators
 |   **Member**         |            **Role**            |
 |----------------------|--------------------------------|
@@ -12,7 +12,7 @@ Software Development Term 1 Project
 |Katherine Gershfeld   | Backend                        |
 
 ##How to Use
-
+Create a local clone of this repository and from the local repo, run app.py. From a web browser, you can access blag from localhost:8000/. Blag's features can be accessed once you are logged in. If you are a first time user, your login credentials should be submitted with the Register button and you can login through the Login button every time thereafter. 
 ## Deadlines
 **BY 10-13-15** NIGHT <br>
 ROUTES ESTABLISHED
