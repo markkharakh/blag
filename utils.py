@@ -163,6 +163,8 @@ def getUserId(name):
     q = 'SELECT users.id FROM users WHERE users.name = "%s"'
     result = cur.execute(q%name).fetchone()
     conn.commit()
+    if result==None:
+        return None
     return result[0]
 
 def getUserName(uid):
