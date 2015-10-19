@@ -38,22 +38,9 @@ def writeProfile(idu, filename, age, color):
     q = "UPDATE pics SET filename = ? WHERE id = ?"
     cur.execute(q,(filename,idpic))'''
     conn.commit()
-
-#writeProfile(3,"www.stuycs.org", 35, "pink")
-
-'''def writePic(filename):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
-    q = "SELECT MAX(picid) FROM pics"
-    idp = cur.execute(q).fetchone()[0]
-    if idp == None:
-        idp = 0
-    print idp+1
-    q = "INSERT INTO pics(id,filename) VALUES(?,?)"
-    cur.execute(q,(idp,filename))
-    conn.commit()'''
     
 #----------------------------------Deleting-------------------------------
+
 def deleteComment(idc):
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
