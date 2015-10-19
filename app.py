@@ -100,16 +100,21 @@ def delete(pid=0,cid=0):
         
 @app.route("/user/<username>", methods = ['GET','POST'])
 def user(username=""):
+        error=""
+        profile = []
         if username == "":
                 return redirect("/login")
         else:
                 if request.method == 'POST':
                         return redirect("/editprofile")
                 else:
-                        userid = utils.getUserId(username)
-                        profile = utils.getProfile(userid)
-                        print profile
-                        return render_template("myprofile.html", profile = profile)
+                        if utils.getUserId(username) == None:
+                                error = "User does not exist!"
+                        else:
+                                userid = utils.getUserId(username)
+                                profile = utils.getProfile(userid)
+                                print profile
+                        return render_template("myprofile.html", profile = profile, error = error)
 
 @app.route("/editprofile", methods = ['GET','POST'])
 def editprofile():
