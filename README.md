@@ -1,5 +1,5 @@
 # blag
-Software Development Term 1 Project
+Software Development Term 1 Blog Project
 
 ## Description
 Blag is a new innovative blogging platform where everyone shares one blog. In this communal blogspace, users can create posts, view other users' posts, leave comments and check out other users' profiles. 
@@ -12,7 +12,9 @@ Blag is a new innovative blogging platform where everyone shares one blog. In th
 |Katherine Gershfeld   | Backend                        |
 
 ##How to Use
-Create a local clone of this repository and from the local repo, run app.py. From a web browser, you can access blag from localhost:8000/. Blag's features can be accessed once you are logged in. If you are a first time user, your login credentials should be submitted with the Register button and you can login through the Login button every time thereafter. 
+The python module Flask is necessary to use blab. Find out more about Flask <a href="http://flask.pocoo.org/">here</a>.<br>
+Create a local clone of this repository and from the local repo, run `python app.py`. From a web browser, you can access blag from localhost:8000/. Blag's features can be accessed once you are logged in. If you are a first time user, your login credentials should be submitted with the Register button and you can login through the Login button every time thereafter. 
+
 ## Deadlines
 **BY 10-13-15** NIGHT <br>
 ROUTES ESTABLISHED
@@ -40,7 +42,6 @@ MAKE POSTS USING USER INTERFACE
 +Finish profile pages<br>
 +Do edit profile <br>
 +Picture uploading (?) <br>
-(still need)
 +Resize images <br>
 +Make links to profiles work <br>
 +Make other user profiles show up correctly <br>
