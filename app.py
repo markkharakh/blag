@@ -13,12 +13,6 @@ def about():
         
 @app.route("/login", methods = ['GET','POST'])
 def login():
-        '''conn = sqlite3.connect('data.db')
-        cur = conn.cursor()
-        q = "SELECT users.name FROM users"
-        cur.execute(q)
-        all_rows = cur.fetchall()
-        print all_rows'''
         all_rows = utils.getAllUsers()
         for n in range(len(all_rows)):
                 all_rows[n] = all_rows[n][0]
@@ -34,7 +28,6 @@ def login():
                                 error = "Incorrect Username or Password. Try Again."
                                 return render_template("login.html",error=error)
                 else:
-                        print "a"
                         if user in all_rows:
                                 error = "Username already exists. Please try another"
                                 return render_template("login.html",error=error)
@@ -70,7 +63,6 @@ def post(postid):
         for comment in commentrow:
                 users.append(comment[2])
         size = len(users)
-        print commentrow
         return render_template("post.html", postrow = postrow, commentrow = commentrow, users = users, size = size)
 
 @app.route("/makepost", methods = ['GET','POST'])
@@ -113,7 +105,6 @@ def user(username=""):
                         else:
                                 userid = utils.getUserId(username)
                                 profile = utils.getProfile(userid)
-                                print profile
                         return render_template("myprofile.html", profile = profile, error = error)
 
 @app.route("/editprofile", methods = ['GET','POST'])
@@ -123,7 +114,6 @@ def editprofile():
         profile = utils.getProfile(userid)
         if request.method == 'POST':
                 if request.form['picsource'] != "" and request.form['age'] != "" and request.form['color'] != "":
-                        print "PICSOURCE = "+request.form['picsource']+" AGE ="+request.form['age']+" COLOR ="+ request.form['color']
                         utils.writeProfile(utils.getUserId(session['user']), request.form['picsource'], int(request.form['age']), request.form['color'])
                         return redirect(url_for('user', username=session['user']))
                 else:
@@ -146,4 +136,3 @@ if __name__ == "__main__":
         app.secret_key = "hello"
         app.debug = True
         app.run(host='0.0.0.0', port=8000)
-        #app.run(debug=True)
