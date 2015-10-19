@@ -46,6 +46,6 @@ MAKE POSTS USING USER INTERFACE
 +Make links to profiles work <br>
 +Make other user profiles show up correctly <br>
 +Post timestamps <br>
-+About page
-+Final testing
-+Finish readme
++About page <br>
++Final testing <br>
++Finish readme <br>
