@@ -1,4 +1,7 @@
 import sqlite3,hashlib
+from pymongo import MongoClient
+
+# All methods should be rewritten using mongo instead of SQLite
 
 #----------------------------------Writing--------------------------------
 
@@ -22,7 +25,7 @@ def writeComment(txt, idu, idp):
     idc = cur.execute(q).fetchone()[0]
     if idc == None:
         idc = 0
-    print idc+1
+    #print idc+1
     q = "INSERT INTO comments(content,cid,pid,uid) VALUES(?,?,?,?)"
     cur.execute(q,(txt,idc+1,idp,idu))
     conn.commit()
@@ -115,14 +118,24 @@ def getAllPosts():
     return all_rows
 
 def getAllUsers():
+    connection = MongoClient()
+    db = connection['data']
+    print db.collection_names()
+    res = db.users.find()
+    all_rows = []
+    for i in res:
+        all_rows.append(i)
+    return all_rows
+    """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT users.name FROM users"
     cur.execute(q)
     all_rows = cur.fetchall()
-    print all_rows
+    #print all_rows
     conn.commit()
     return all_rows
+    """
 
 def getProfile(uid):
     conn = sqlite3.connect('data.db')
@@ -181,7 +194,7 @@ def addUser(username,password):
             uid=0
         q = 'INSERT INTO users VALUES (?, ?, ?,-1,-1,"","")'
         cur.execute(q, (username, encrypt(password), uid+1))
-        print str(uid+1)+","+username
+        #print str(uid+1)+","+username
         conn.commit()
         return True
     conn.commit()
