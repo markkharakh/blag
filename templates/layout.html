@@ -1,36 +1,36 @@
 <html>
-<head>
-<title>Blag Blog Page</title>
-<link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="container">
-  <div id="banner">
-  </div>
-  <div id="navcontainer">
-    <ul id="navlist">
-      <li id="active"><a id="current" href="{{url_for('home')}}">Blag Blogpage</a></li>
-      <li><a href="{{url_for('makepost')}}">New Post</a></li>
+  <head>
+    <title>Blag Blog Page</title>
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="banner">
+      </div>
+      <div id="navcontainer">
+	<ul id="navlist">
+	  <li id="active"><a id="current" href="{{url_for('home')}}">Blag Blogpage</a></li>
+	  <li><a href="{{url_for('makepost')}}">New Post</a></li>
+	  {% if session.has_key('user') %}
+	  <li><a href="{{url_for('logout')}}">Logout</a></li>
+	  {% else %}
+	  <li><a href="{{url_for('login')}}">Login</a></li>
+	  {% endif %}
+	  <li><a href="{{url_for('user', username=session['user'])}}">Profile</a></li>
+	  <li><a href="{{url_for('about')}}">About</a></li>
+	</ul>
+      </div>
+      <div id="content">
+	<h2>Blag! The new way to blog.</h2>
+	<br/>
 	{% if session.has_key('user') %}
-	<li><a href="{{url_for('logout')}}">Logout</a></li>
+	<p> Hello <b>{{session['user']}}</b>!</p>
 	{% else %}
-      <li><a href="{{url_for('login')}}">Login</a></li>
+	<p> You are not logged in </p>
 	{% endif %}
-      <li><a href="{{url_for('user', username=session['user'])}}">Profile</a></li>
-      <li><a href="{{url_for('about')}}">About</a></li>
-    </ul>
-  </div>
-    <div id="content">
-    <h2>Blag! The new way to blog.</h2>
-<br/>
-    {% if session.has_key('user') %}
-    <p> Hello <b>{{session['user']}}</b>!</p>
-    {% else %}
-    <p> You are not logged in </p>
-    {% endif %}
-    <p>Blag was created to be an amazing highschool blog experience</p>
+	<p>Blag was created to be an amazing highschool blog experience</p>
 	
-    {% block content %} {% endblock %}
+	{% block content %} {% endblock %}
 
-</body>
+  </body>
 </html>

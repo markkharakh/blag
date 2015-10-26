@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for r in all_rows %}
-    <h2><a href="{{url_for('post', postid = r[1])}}">{{r[4]}}</a></h2>
-    <p class="info"> {% if r[6] %}
-    <img class="noborder" src="{{r[6]}}", width = "100px" alt="" title="sun"/>   {% else %}
-    <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}
-      <a href="{{url_for('user', username=r[3]) }}">{{r[3]}}</a> {{r[5]}}
-	{% if session['user'] == r[3] %}
-	<a href="{{url_for('delete', pid = r[1])}}">delete post</a>
-	{% endif %}
+
+{% for r in all_rows %}
+<h2><a href="{{url_for('post', postid = r[1])}}">{{r[4]}}</a></h2>
+<p class="info"> {% if r[6] %}
+  <img class="noborder" src="{{r[6]}}", width = "100px" alt="" title="sun"/>   {% else %}
+  <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}
+  <a href="{{url_for('user', username=r[3]) }}">{{r[3]}}</a> {{r[5]}}
+  {% if session['user'] == r[3] %}
+  <a href="{{url_for('delete', pid = r[1])}}">delete post</a>
+  {% endif %}
 </p>
-    <p>{{r[0]}}</p>
-    <p class="post"> <a href="{{url_for('post', postid = r[1])}}" class="comments">Comments</a> </p>
-    {% endfor %}
-    
-    <!--<h2>Post One</h2>
+<p>{{r[0]}}</p>
+<p class="post"> <a href="{{url_for('post', postid = r[1])}}" class="comments">Comments</a> </p>
+{% endfor %}
+
+<!--<h2>Post One</h2>
     <p class="info"><img class="noborder" src="img/sun.jpg" alt="sun" title="sun"/> Subject Text</p>
-    <p>The post itself. HI! blablablabla!!</p>
-    <p class="post"> <a href="#" class="comments">Comments</a> </p>
-    <h2>Post Two</h2>
-    <p class="info"><img class="noborder" src="img/sun.jpg" alt="sun" title="sun"/> Subject Text</p>
-    <p>The post itself. Wassup i want to talk about me feelings</p>
-    <p class="post"> <a href="#" class="comments">Comments</a> </p>-->
+<p>The post itself. HI! blablablabla!!</p>
+<p class="post"> <a href="#" class="comments">Comments</a> </p>
+<h2>Post Two</h2>
+<p class="info"><img class="noborder" src="img/sun.jpg" alt="sun" title="sun"/> Subject Text</p>
+<p>The post itself. Wassup i want to talk about me feelings</p>
+<p class="post"> <a href="#" class="comments">Comments</a> </p>-->
+
 {% endblock %}

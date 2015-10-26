@@ -1,25 +1,26 @@
 {% extends "layout.html" %}
-{% block content /%}
-    <h2>{{postrow[0]}}</h2>
-    <p class="info"> {% if postrow[6] %}
-    <img class="noborder" src="{{postrow[6]}}", width = "100px" alt="" title="sun"/>   {% else %}
-    <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}
-      <a href="{{url_for('user', username=postrow[5]) }}">{{postrow[5]}}</a> {{postrow[4]}}
-	{% if session['user'] == postrow[5] %}
-	<a href="{{url_for('delete', pid = postrow[3])}}">delete post</a>
-	{% endif %}
+{% block content %}
+
+<h2>{{postrow[0]}}</h2>
+<p class="info"> {% if postrow[6] %}
+  <img class="noborder" src="{{postrow[6]}}", width = "100px" alt="" title="sun"/>   {% else %}
+  <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}
+  <a href="{{url_for('user', username=postrow[5]) }}">{{postrow[5]}}</a> {{postrow[4]}}
+  {% if session['user'] == postrow[5] %}
+  <a href="{{url_for('delete', pid = postrow[3])}}">delete post</a>
+  {% endif %}
 </p>
-    <p>{{postrow[1]}}</p>
+<p>{{postrow[1]}}</p>
 <br />
 <br>
 {% for comment in commentrow %}
 <p class="info">  {% if comment[4] %}
-    <img class="noborder" src="{{comment[4]}}", width = "100px" alt="" title="sun"/>   {% else %}
-    <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}<a href="{{url_for('user', username=postrow[5]) }}">{{comment[2]}}</a>
-{{comment[1]}}
-{% if session['user'] == comment[2] %}
-	<a href="{{url_for('delete', pid = postrow[3], cid = comment[3])}}">delete comment</a>
-	{% endif %}
+  <img class="noborder" src="{{comment[4]}}", width = "100px" alt="" title="sun"/>   {% else %}
+  <img class="noborder" src="{{url_for('static',filename = "img/animal_crossing.png")}}" alt="" title="sun"/> {% endif %}<a href="{{url_for('user', username=postrow[5]) }}">{{comment[2]}}</a>
+  {{comment[1]}}
+  {% if session['user'] == comment[2] %}
+  <a href="{{url_for('delete', pid = postrow[3], cid = comment[3])}}">delete comment</a>
+  {% endif %}
 </p>
 <p>{{comment[0]}}</p>
 <br>
@@ -29,4 +30,5 @@
   <br />
   <br />
   <textarea name = "name" style="width: 600px; height: 300px;" ></textarea></form>
+
 {% endblock %}

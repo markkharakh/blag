@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>
-    <br /> 
-    <form method = "POST">
-      Title:<br /> <input type = "text" name = "title" value = "" ><br />
-      New Post:<br />
-      <textarea name = "content" style="width: 600px; height: 300px; font-family:trebuchet ms;"></textarea>
+
+<h2>
+  <br /> 
+  <form method = "POST">
+    Title:<br /> <input type = "text" name = "title" value = "" ><br />
+    New Post:<br />
+    <textarea name = "content" style="width: 600px; height: 300px; font-family:trebuchet ms;"></textarea>
 </h2>
 <br />
-	<input type = "submit" name = "press" value = "submit post"></form>
+<input type = "submit" name = "press" value = "submit post"></form>
 </h2>
+
 {% endblock %}
