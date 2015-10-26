@@ -120,7 +120,7 @@ def getAllUsers():
     connection = MongoClient()
     db = connection['data']
     print db.collection_names()
-    res = db.users.find()
+    res = db.users.find({}, {'name':true})
     all_rows = []
     for i in res:
         all_rows.append(i)
@@ -137,6 +137,12 @@ def getAllUsers():
     """
 
 def getProfile(uid):
+    connection = MongoClient()
+    db = connection['data']
+    res = db.users.find({'id':uid}, {'name':true, 'filename':true, 'age':true, 'color':true})
+    for i in res:
+        return i
+    """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT name,filename,age,color FROM users WHERE users.id = %d'
@@ -144,6 +150,7 @@ def getProfile(uid):
     row = cur.fetchone()
     conn.commit()
     return row
+    """
 
 #----------------------------------Log In---------------------------------
     
