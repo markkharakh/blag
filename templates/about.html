@@ -1,41 +1,12 @@
-<html>
-<head>
-<title>Blag Login</title>
-<link href="/static/style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="container">
-  <div id="banner">
-  </div>
-  <div id="navcontainer">
-    <ul id="navlist">
-      <li><a href="{{url_for('home')}}">Blag Blogpage</a></li>
-      <li><a href="{{url_for('makepost')}}">New Post</a></li>
-	{% if session.has_key('user') %}
-	<li><a href="{{url_for('logout')}}">Logout</a></li>
-	{% else %}
-      <li><a href="{{url_for('login')}}">Login</a></li>
-	{% endif %}
-      <li><a href="{{url_for('user', username=session['user'])}}">Profile</a></li>
-      <li id="active"><a id="current" href="{{url_for('about')}}">About</a></li>
-    </ul>
-  </div>
-    <div id="content">
-    <h2>Blag! The new way to blog.</h2>
-<br />
-    {% if session.has_key('user') %}
-    <p> Hello <b>{{session['user']}}</b>!</p>
-    {% else %}
-    <p> You are not logged in </p>
-    {% endif %}
-    <br /> 
-    <h2> Blag is a new innovative blogging platform where everyone shares one blog!</h2>
-    <p> You can post and comment anywhere, visit user pages, and have your own profile picture! </p>
-    <p> We even wanna know your favorite power ranger! </p>
-    <p> Developed by Sandy Fang, Katherine Gershfeld, Jacob Hoffman, Dong Shin </p>
-    <h4> P.S. Blag >>> blog </h4>
-    <a href="https://www.github.com/snady/blag">Github</a>
-  </div>
-</div>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+
+<br /> 
+<h2> Blag is a new innovative blogging platform where everyone shares one blog!</h2>
+<p> You can post and comment anywhere, visit user pages, and have your own profile picture! </p>
+<p> We even wanna know your favorite power ranger! </p>
+<p> Developed by Sandy Fang, Katherine Gershfeld, Jacob Hoffman, Dong Shin </p>
+<h4> P.S. Blag >>> blog </h4>
+<a href="https://www.github.com/snady/blag">Github</a>
+
+{% endblock %}
