@@ -1,6 +1,8 @@
 import sqlite3,hashlib
 from pymongo import MongoClient
 
+#Liam is pulling this
+
 # All methods should be rewritten using mongo instead of SQLite
 
 #----------------------------------Writing--------------------------------
