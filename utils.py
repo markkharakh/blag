@@ -5,6 +5,9 @@ from pymongo import MongoClient
 
 # All methods should be rewritten using mongo instead of SQLite
 
+connection = MongoClient()
+db = connection['data']
+
 #----------------------------------Writing--------------------------------
 
 def writePost(title, txt, idu):
@@ -91,12 +94,19 @@ def getComment(cid):
     return result
 
 def getUserPosts(idu):
+    res = db.posts.find({'uid':idu})
+    posts = []
+    for i in res:
+        posts.append(i)
+    return posts
+    """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = "SELECT * FROM posts WHERE posts.uid = %d"
     result = cur.execute(q%idu).fetchall()
     conn.commit()
     return result
+    """
 
 def getPost(idp):
     conn = sqlite3.connect('data.db')
@@ -117,9 +127,6 @@ def getAllPosts():
     return all_rows
 
 def getAllUsers():
-    connection = MongoClient()
-    db = connection['data']
-    print db.collection_names()
     res = db.users.find({}, {'name':true})
     all_rows = []
     for i in res:
@@ -137,11 +144,8 @@ def getAllUsers():
     """
 
 def getProfile(uid):
-    connection = MongoClient()
-    db = connection['data']
     res = db.users.find({'id':uid}, {'name':true, 'filename':true, 'age':true, 'color':true})
-    for i in res:
-        return i
+    return res.next()
     """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
@@ -171,6 +175,12 @@ def authenticate(username,password):
     return False
 
 def getUserId(name):
+    res = db.users.find({'name':name}, {'id':true})
+    if res == None:
+        return None
+    else:
+        return res.next()
+    """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.id FROM users WHERE users.name = "%s"'
@@ -179,14 +189,19 @@ def getUserId(name):
     if result==None:
         return None
     return result[0]
+    """
 
 def getUserName(uid):
+    res = db.users.find({'id':uid}, {'name':true})
+    return res.next()
+    """
     conn = sqlite3.connect('data.db')
     cur = conn.cursor()
     q = 'SELECT users.name FROM users WHERE users.id = %d'
     result = cur.execute(q%uid).fetchone()
     conn.commit()
     return result[0]
+    """
 
 def addUser(username,password):
     conn = sqlite3.connect('data.db')
