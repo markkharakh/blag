@@ -18,7 +18,7 @@ def writePost(title, txt, idu):
         }
     )
     q = "SELECT MAX(pid) FROM posts"
-    idp = cur.execute(q).fetchone()[0] #Figure out what idp is and how to implement it
+    idp = cur.execute(q).fetchone()[0] #idp is the post id, figure out how to implement it
     if idp == None:
         idp = 0
     print idp+1
@@ -27,16 +27,19 @@ def writePost(title, txt, idu):
     return idp + 1
 
 def writeComment(txt, idu, idp):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.idp.insert_one( #make sure this will write to the post with idp and not create a new collection
+        {
+            "text": txt
+            "ID": idp
+        }
+    )
     q = "SELECT MAX(cid) FROM comments"
     idc = cur.execute(q).fetchone()[0]
-    if idc == None:
+    if idc == None: #idc is the comment id, figure out how to implement it
         idc = 0
     #print idc+1
     q = "INSERT INTO comments(content,cid,pid,uid) VALUES(?,?,?,?)"
     cur.execute(q,(txt,idc+1,idp,idu))
-    conn.commit()
 
 def writeProfile(idu, filename, age, color):
     conn = sqlite3.connect('data.db')
