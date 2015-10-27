@@ -85,8 +85,9 @@ def deletePost(idp):
 #----------------------------------Getting--------------------------------
 
 def getCommentsOnPost(idp):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.find( #not right, fix this - find should be the command tho, needs to be changed so it takes comments from post with idp.
+        {idp}
+    )
     q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid,users.filename FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp).fetchall()
     conn.commit()
