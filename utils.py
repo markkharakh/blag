@@ -11,8 +11,12 @@ db = connection['data']
 #----------------------------------Writing--------------------------------
 
 def writePost(title, txt, idu):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.title.insert_one(
+        {
+            "text": txt
+            "ID": idu
+        }
+    )
     q = "SELECT MAX(pid) FROM posts"
     idp = cur.execute(q).fetchone()[0]
     if idp == None:
