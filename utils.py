@@ -18,13 +18,12 @@ def writePost(title, txt, idu):
         }
     )
     q = "SELECT MAX(pid) FROM posts"
-    idp = cur.execute(q).fetchone()[0]
+    idp = cur.execute(q).fetchone()[0] #Figure out what idp is and how to implement it
     if idp == None:
         idp = 0
     print idp+1
     q = "INSERT INTO posts(title,content,uid,pid) VALUES(?,?,?,?)"
     cur.execute(q,(title,txt,idu,idp+1))
-    conn.commit()
     return idp + 1
 
 def writeComment(txt, idu, idp):
