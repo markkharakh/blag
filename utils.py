@@ -11,29 +11,35 @@ db = connection['data']
 #----------------------------------Writing--------------------------------
 
 def writePost(title, txt, idu):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.title.insert_one(
+        {
+            "text": txt
+            "ID": idu
+        }
+    )
     q = "SELECT MAX(pid) FROM posts"
-    idp = cur.execute(q).fetchone()[0]
+    idp = cur.execute(q).fetchone()[0] #idp is the post id, figure out how to implement it
     if idp == None:
         idp = 0
     print idp+1
     q = "INSERT INTO posts(title,content,uid,pid) VALUES(?,?,?,?)"
     cur.execute(q,(title,txt,idu,idp+1))
-    conn.commit()
     return idp + 1
 
 def writeComment(txt, idu, idp):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.idp.insert_one( #make sure this will write to the post with idp and not create a new collection
+        {
+            "text": txt
+            "ID": idp
+        }
+    )
     q = "SELECT MAX(cid) FROM comments"
     idc = cur.execute(q).fetchone()[0]
-    if idc == None:
+    if idc == None: #idc is the comment id, figure out how to implement it
         idc = 0
     #print idc+1
     q = "INSERT INTO comments(content,cid,pid,uid) VALUES(?,?,?,?)"
     cur.execute(q,(txt,idc+1,idp,idu))
-    conn.commit()
 
 def writeProfile(idu, filename, age, color):
     conn = sqlite3.connect('data.db')
@@ -79,8 +85,9 @@ def deletePost(idp):
 #----------------------------------Getting--------------------------------
 
 def getCommentsOnPost(idp):
-    conn = sqlite3.connect('data.db')
-    cur = conn.cursor()
+    db.find( #not right, fix this - find should be the command tho, needs to be changed so it takes comments from post with idp.
+        {idp}
+    )
     q = "SELECT comments.content,datetime(comments.time,'localtime'),users.name,comments.cid,users.filename FROM comments, users WHERE comments.pid = %d AND users.id = comments.uid"
     result = cur.execute(q%idp).fetchall()
     conn.commit()
